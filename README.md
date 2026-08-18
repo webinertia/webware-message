@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/github/license/webinertia/webware-message)](LICENSE)
 [![Continuous Integration](https://github.com/webinertia/webware-message/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/webinertia/webware-message/actions/workflows/continuous-integration.yml)
 [![codecov](https://codecov.io/gh/webinertia/webware-message/graph/badge.svg)](https://codecov.io/gh/webinertia/webware-message)
-[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fwebinertia%2Fwebware-message%2F0.1.x)](https://dashboard.stryker-mutator.io/reports/github.com/webinertia/webware-message/0.1.x)
+[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fwebinertia%2Fwebware-message%2F1.0.x)](https://dashboard.stryker-mutator.io/reports/github.com/webinertia/webware-message/1.0.x)
 
 A sessions-backed flash messenger for [Mezzio](https://docs.mezzio.dev/)
 applications. Provides PSR-15 middleware, a `SystemMessengerInterface`
