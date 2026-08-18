@@ -17,8 +17,8 @@ namespace Webware\Message;
 enum MessageLevel: string
 {
     case Success = 'success';
-    case Danger  = 'danger';
+    case Danger = 'danger';
     case Warning = 'warning';
-    case Info    = 'info';
+    case Info = 'info';
     case Message = 'message'; // SSE base message type
 }

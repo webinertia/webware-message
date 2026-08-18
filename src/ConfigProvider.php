@@ -14,15 +14,13 @@ declare(strict_types=1);
 
 namespace Webware\Message;
 
-use Webware\CommandBus\CommandBusInterface;
-use Webware\CommandBus\ConfigProvider as BusProvider;
-
 final readonly class ConfigProvider
 {
+    /** @return array<string, mixed> */
     public function getDependencies(): array
     {
         return [
-            'aliases'   => [
+            'aliases' => [
                 SystemMessengerInterface::class => SystemMessenger::class,
             ],
             'factories' => [
@@ -31,6 +29,7 @@ final readonly class ConfigProvider
         ];
     }
 
+    /** @return array<string, mixed> */
     public function getMessageTemplates(): array
     {
         return [
@@ -43,6 +42,7 @@ final readonly class ConfigProvider
         ];
     }
 
+    /** @return array<string, mixed> */
     public function getTemplates(): array
     {
         return [
@@ -52,12 +52,13 @@ final readonly class ConfigProvider
         ];
     }
 
+    /** @return array<string, mixed> */
     public function getViewHelpers(): array
     {
         return [
-            'aliases'   => [
-                'messenger'       => View\Helper\SystemMessenger::class,
-                'systemMessage'   => View\Helper\SystemMessenger::class,
+            'aliases' => [
+                'messenger' => View\Helper\SystemMessenger::class,
+                'systemMessage' => View\Helper\SystemMessenger::class,
                 'systemMessenger' => View\Helper\SystemMessenger::class,
             ],
             'factories' => [
@@ -66,12 +67,13 @@ final readonly class ConfigProvider
         ];
     }
 
+    /** @return array<string, mixed> */
     public function __invoke(): array
     {
         return [
-            'dependencies'                  => $this->getDependencies(),
-            'templates'                     => $this->getTemplates(),
-            'view_helpers'                  => $this->getViewHelpers(),
+            'dependencies' => $this->getDependencies(),
+            'templates' => $this->getTemplates(),
+            'view_helpers' => $this->getViewHelpers(),
             SystemMessengerInterface::class => $this->getMessageTemplates(),
         ];
     }

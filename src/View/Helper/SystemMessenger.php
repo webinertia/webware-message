@@ -16,17 +16,18 @@ namespace Webware\Message\View\Helper;
 
 use Webware\Message\MessageIcon;
 use Webware\Message\MessageLevel;
-use Webware\Message\SystemMessage;
 use Webware\Message\SystemMessenger as Messenger;
 use Webware\Message\SystemMessengerInterface;
 
+use function array_key_exists;
+use function implode;
 use function sprintf;
 
-class SystemMessenger
+final class SystemMessenger
 {
-    final public const MESSAGE_KEY = SystemMessengerInterface::SESSION_KEY;
+    final public const string MESSAGE_KEY = SystemMessengerInterface::SESSION_KEY;
 
-    private const MESSAGE_TOAST = <<<'EOT'
+    private const string MESSAGE_TOAST = <<<'EOT'
             <div class="toast" role="alert" data-bs-autohide="false" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header bg-%s-subtle">
                     <i class="text-%s bi bi-%s"></i>
@@ -39,9 +40,7 @@ class SystemMessenger
             </div>
         EOT;
 
-    private ?string $systemMessage;
-
-    private Messenger $messenger;
+    private ?Messenger $messenger = null;
 
     public function getMessenger(): ?Messenger
     {
@@ -53,15 +52,17 @@ class SystemMessenger
         $this->messenger = $messenger;
     }
 
-    public function __invoke(
-        string $messageLevel = MessageLevel::Info,
-        $default = null,
-    ) {
-        $levels   = MessageLevel::cases();
+    public function __invoke(): string
+    {
+        if (null === $this->messenger) {
+            return '';
+        }
+
+        $levels = MessageLevel::cases();
         $messages = '';
         foreach ($levels as $key) {
             $systemMessages = $this->messenger->getMessages();
-            if (! isset($systemMessages[$key->value])) {
+            if (!array_key_exists($key->value, $systemMessages)) {
                 continue;
             }
             $messages .= sprintf(
@@ -70,7 +71,7 @@ class SystemMessenger
                 $key->value,
                 MessageIcon::tryFromLevel($key->value)->value,
                 $key->name,
-                $systemMessages[$key->value],
+                implode('<br>', $systemMessages[$key->value]),
             );
         }
 

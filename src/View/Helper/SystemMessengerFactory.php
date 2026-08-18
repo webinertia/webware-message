@@ -14,11 +14,9 @@ declare(strict_types=1);
 
 namespace Webware\Message\View\Helper;
 
-use Psr\Container\ContainerInterface;
-
 final class SystemMessengerFactory
 {
-    public function __invoke(ContainerInterface $container): SystemMessenger
+    public function __invoke(): SystemMessenger
     {
         return new SystemMessenger();
     }

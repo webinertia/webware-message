@@ -23,7 +23,7 @@ trait MessageIconCapableTrait
         return $this->messageIcon;
     }
 
-    public function setMessageIcon(?MessageIcon $messageIcon): MessageIconCapableInterface
+    public function setMessageIcon(?MessageIcon $messageIcon): static
     {
         $this->messageIcon = $messageIcon;
 

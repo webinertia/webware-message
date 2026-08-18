@@ -14,11 +14,14 @@ declare(strict_types=1);
 
 namespace Webware\Message\Middleware;
 
+use Mezzio\Session\SessionInterface;
 use Mezzio\Session\SessionMiddleware;
+use Override;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Webware\Message\Exception\MissingSessionException;
 use Webware\Message\SystemMessenger;
 use Webware\Message\SystemMessengerInterface;
 use Webware\Message\View\Helper\SystemMessenger as Helper;
@@ -29,11 +32,22 @@ final class MessageMiddleware implements MiddlewareInterface
         private Helper $helper,
     ) {}
 
+    /**
+     * @throws MissingSessionException
+     */
+    #[Override]
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        /** @var SessionInterface|null $session */
+        $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
+
+        if (!$session instanceof SessionInterface) {
+            throw MissingSessionException::forMiddleware($this);
+        }
+
         // create an instance of the SystemMessenger
         $systemMessenger = new SystemMessenger(
-            $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE),
+            $session,
             SystemMessengerInterface::SESSION_KEY,
         );
         // inject SystemMessenger into the helper instance

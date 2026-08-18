@@ -13,7 +13,7 @@ trait SystemMessengerAwareTrait
         return $this->systemMessenger;
     }
 
-    public function setSystemMessenger(SystemMessengerInterface $systemMessenger): SystemMessengerAwareInterface
+    public function setSystemMessenger(SystemMessengerInterface $systemMessenger): static
     {
         $this->systemMessenger = $systemMessenger;
 
