@@ -11,6 +11,14 @@ A sessions-backed flash messenger for [Mezzio](https://docs.mezzio.dev/)
 applications. Provides PSR-15 middleware, a `SystemMessengerInterface`
 service, and a view helper for rendering bootstrap-style toast messages.
 
+## Documentation
+
+- [Installation](docs/v1/installation.md)
+- [Configuration Reference](docs/v1/configuration.md)
+- [Messenger](docs/v1/messenger.md)
+- [Middleware](docs/v1/middleware.md)
+- [View Helper](docs/v1/view-helper.md)
+
 ## Quick Start
 
 ```bash
