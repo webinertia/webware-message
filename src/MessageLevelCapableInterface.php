@@ -18,5 +18,5 @@ interface MessageLevelCapableInterface
 {
     public function getMessageLevel(): MessageLevel;
 
-    public function setMessageLevel(MessageLevel $messageLevel): MessageLevelCapableInterface;
+    public function setMessageLevel(MessageLevel $messageLevel): self;
 }

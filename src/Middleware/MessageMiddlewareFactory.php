@@ -15,11 +15,17 @@ declare(strict_types=1);
 namespace Webware\Message\Middleware;
 
 use Laminas\View\HelperPluginManager;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Webware\Message\View\Helper\SystemMessenger;
 
 final class MessageMiddlewareFactory
 {
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
     public function __invoke(ContainerInterface $container): MessageMiddleware
     {
         $helperManager = $container->get(HelperPluginManager::class);

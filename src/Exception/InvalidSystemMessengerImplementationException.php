@@ -20,7 +20,7 @@ use Webware\Message\SystemMessengerInterface;
 
 use function sprintf;
 
-class InvalidSystemMessengerImplementationException extends InvalidArgumentException implements ExceptionInterface
+final class InvalidSystemMessengerImplementationException extends InvalidArgumentException implements ExceptionInterface
 {
     public static function forClass(string $class): self
     {

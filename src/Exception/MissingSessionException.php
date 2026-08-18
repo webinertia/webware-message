@@ -19,9 +19,9 @@ use RuntimeException;
 
 use function sprintf;
 
-class MissingSessionException extends RuntimeException implements ExceptionInterface
+final class MissingSessionException extends RuntimeException implements ExceptionInterface
 {
-    public static function forMiddleware(MiddlewareInterface $middleware): MissingSessionException
+    public static function forMiddleware(MiddlewareInterface $middleware): self
     {
         return new self(sprintf(
             'Unable to create SystemMessenger in %s; missing session attribute',
