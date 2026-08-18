@@ -1,0 +1,72 @@
+{
+    "name": "webware/webware-message",
+    "description": "A Sessions backed flash messenger for Mezzio",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "webware",
+        "mezzio",
+        "message abstraction",
+        "flash messenger"
+    ],
+    "homepage": "https://github.com/orgs/webinertia/discussions",
+    "support": {
+        "issues": "https://github.com/webinertia/webware-message/issues",
+        "chat": "https://discord.gg/9TxQ74EPsG"
+    },
+    "authors": [
+        {
+            "name": "Joey Smith",
+            "email": "jsmith@webinertia.net"
+        }
+    ],
+    "require": {
+        "php": "~8.4.1 || ~8.5.0",
+        "mezzio/mezzio-session-ext": "^1.21.0",
+        "webware/message-bus": "^2.0.0-beta.1"
+    },
+    "require-dev": {
+        "php-db/phpdb-mysql": "^0.5.x-dev",
+        "phpunit/phpunit": "^13.3",
+        "psr/container": "^2.0",
+        "psr/http-message": "^2.0",
+        "psr/http-server-handler": "^1.0",
+        "psr/http-server-middleware": "^1.0",
+        "roave/security-advisories": "dev-master",
+        "webware/messagebus-event": "^2.0.0-beta.1",
+        "webware/webware-mailer": "^1.0.0-beta.1"
+    },
+    "extra": {
+        "laminas": {
+            "config-provider": "Webware\\Message\\ConfigProvider"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Webware\\Message\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WebwareTest\\Message\\": "test/"
+        }
+    },
+    "scripts": {
+        "test-all": [
+            "@test"
+        ],
+        "test": "phpunit --colors=always",
+        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "platform": {
+            "php": "8.4.99"
+        },
+        "allow-plugins": {
+            "laminas/laminas-component-installer": true,
+            "composer/package-versions-deprecated": true
+        }
+    }
+}
