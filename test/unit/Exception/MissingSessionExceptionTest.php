@@ -38,6 +38,19 @@ final class MissingSessionExceptionTest extends TestCase
      * @throws \PHPUnit\Exception
      */
     #[Test]
+    public function exceptionExtendsRuntimeExceptionAndPackageMarker(): void
+    {
+        $middleware = $this->createStub(MiddlewareInterface::class);
+        $exception  = MissingSessionException::forMiddleware($middleware);
+
+        self::assertInstanceOf(RuntimeException::class, $exception);
+        self::assertInstanceOf(ExceptionInterface::class, $exception);
+    }
+
+    /**
+     * @throws \PHPUnit\Exception
+     */
+    #[Test]
     public function forMiddlewareNamesOffendingMiddleware(): void
     {
         $middleware = new class implements MiddlewareInterface {
@@ -54,18 +67,5 @@ final class MissingSessionExceptionTest extends TestCase
 
         self::assertTrue(str_contains($exception->getMessage(), $middleware::class));
         self::assertTrue(str_contains($exception->getMessage(), 'missing session attribute'));
-    }
-
-    /**
-     * @throws \PHPUnit\Exception
-     */
-    #[Test]
-    public function exceptionExtendsRuntimeExceptionAndPackageMarker(): void
-    {
-        $middleware = $this->createStub(MiddlewareInterface::class);
-        $exception = MissingSessionException::forMiddleware($middleware);
-
-        self::assertInstanceOf(RuntimeException::class, $exception);
-        self::assertInstanceOf(ExceptionInterface::class, $exception);
     }
 }

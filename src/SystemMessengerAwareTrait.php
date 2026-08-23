@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Webware\Message;
 
+/**
+ * @api
+ */
 trait SystemMessengerAwareTrait
 {
     protected SystemMessengerInterface $systemMessenger;

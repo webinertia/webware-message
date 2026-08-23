@@ -31,7 +31,7 @@ final class SystemMessengerAwareTraitTest extends TestCase
     public function setSystemMessengerStoresAndReturnsFluentSelf(): void
     {
         $messenger = $this->createStub(SystemMessengerInterface::class);
-        $fixture = new class($messenger) implements SystemMessengerAwareInterface {
+        $fixture   = new class($messenger) implements SystemMessengerAwareInterface {
             use SystemMessengerAwareTrait;
 
             public function __construct(SystemMessengerInterface $systemMessenger)

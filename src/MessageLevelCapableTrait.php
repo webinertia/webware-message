@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Webware\Message;
 
+/**
+ * @api
+ */
 trait MessageLevelCapableTrait
 {
     protected ?MessageLevel $messageLevel = null;

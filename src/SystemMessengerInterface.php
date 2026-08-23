@@ -8,15 +8,21 @@ declare(strict_types=1);
 
 namespace Webware\Message;
 
+/**
+ * @api
+ */
 interface SystemMessengerInterface
 {
     public const string MESSAGE_TEMPLATES = 'message_templates';
-    public const string SESSION_KEY = self::class . '::SYSTEM_MESSENGER_NEXT';
+    public const string SESSION_KEY       = self::class . '::SYSTEM_MESSENGER_NEXT';
 
     public function addHop(): void;
 
     public function clearMessages(): void;
 
+    /**
+     * @throws Exception\InvalidHopsValueException
+     */
     public function danger(string $message, ?int $hops = 0, bool $now = true, string|int|null $id = null): void;
 
     /**
@@ -32,8 +38,14 @@ interface SystemMessengerInterface
 
     public function hasMessages(): bool;
 
+    /**
+     * @throws Exception\InvalidHopsValueException
+     */
     public function info(string $message, ?int $hops = 0, bool $now = true, string|int|null $id = null): void;
 
+    /**
+     * @throws Exception\InvalidHopsValueException
+     */
     public function send(
         string $message,
         MessageLevel $key = MessageLevel::Info,
@@ -41,6 +53,9 @@ interface SystemMessengerInterface
         string|int|null $id = null,
     ): void;
 
+    /**
+     * @throws Exception\InvalidHopsValueException
+     */
     public function sendNow(
         string $message,
         MessageLevel $key = MessageLevel::Info,
@@ -48,7 +63,13 @@ interface SystemMessengerInterface
         string|int|null $id = null,
     ): void;
 
+    /**
+     * @throws Exception\InvalidHopsValueException
+     */
     public function success(string $message, ?int $hops = 0, bool $now = true, string|int|null $id = null): void;
 
+    /**
+     * @throws Exception\InvalidHopsValueException
+     */
     public function warning(string $message, ?int $hops = 0, bool $now = true, string|int|null $id = null): void;
 }

@@ -33,6 +33,18 @@ final class InvalidSystemMessengerImplementationExceptionTest extends TestCase
      * @throws \PHPUnit\Exception
      */
     #[Test]
+    public function exceptionImplementsPackageMarkerInterface(): void
+    {
+        self::assertInstanceOf(
+            ExceptionInterface::class,
+            InvalidSystemMessengerImplementationException::forClass(TestCase::class),
+        );
+    }
+
+    /**
+     * @throws \PHPUnit\Exception
+     */
+    #[Test]
     public function forClassNamesOffendingClassAndContract(): void
     {
         $exception = InvalidSystemMessengerImplementationException::forClass(TestCase::class);
@@ -40,17 +52,5 @@ final class InvalidSystemMessengerImplementationExceptionTest extends TestCase
         self::assertTrue(str_contains($exception->getMessage(), TestCase::class));
         self::assertTrue(str_contains($exception->getMessage(), MessageMiddleware::class));
         self::assertTrue(str_contains($exception->getMessage(), SystemMessengerInterface::class));
-    }
-
-    /**
-     * @throws \PHPUnit\Exception
-     */
-    #[Test]
-    public function exceptionImplementsPackageMarkerInterface(): void
-    {
-        self::assertInstanceOf(
-            ExceptionInterface::class,
-            InvalidSystemMessengerImplementationException::forClass(TestCase::class),
-        );
     }
 }

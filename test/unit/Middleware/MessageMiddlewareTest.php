@@ -42,16 +42,16 @@ final class MessageMiddlewareTest extends TestCase
     #[Test]
     public function processInjectsMessengerIntoHelperAndRequestAttribute(): void
     {
-        $helper = new SystemMessengerHelper();
+        $helper  = new SystemMessengerHelper();
         $session = $this->createStub(SessionInterface::class);
         $request = new ServerRequest()->withAttribute(
             SessionMiddleware::SESSION_ATTRIBUTE,
             $session,
         );
 
-        $response = $this->createStub(ResponseInterface::class);
+        $response          = $this->createStub(ResponseInterface::class);
         $capturedMessenger = null;
-        $handler = $this->createMock(RequestHandlerInterface::class);
+        $handler           = $this->createMock(RequestHandlerInterface::class);
         $handler->expects($this->once())
             ->method('handle')
             ->willReturnCallback(
@@ -80,7 +80,7 @@ final class MessageMiddlewareTest extends TestCase
     #[Test]
     public function processThrowsWhenSessionAttributeIsMissing(): void
     {
-        $helper = new SystemMessengerHelper();
+        $helper  = new SystemMessengerHelper();
         $handler = $this->createStub(RequestHandlerInterface::class);
 
         $this->expectException(MissingSessionException::class);

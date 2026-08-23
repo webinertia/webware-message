@@ -39,7 +39,7 @@ final class MessageMiddlewareFactoryTest extends TestCase
     #[Test]
     public function factoryBuildsMiddlewareUsingHelperFromPluginManager(): void
     {
-        $helper = new SystemMessenger();
+        $helper        = new SystemMessenger();
         $helperManager = new HelperPluginManager(
             new ServiceManager(),
             [

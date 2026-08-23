@@ -58,11 +58,11 @@ final class SystemMessenger
             return '';
         }
 
-        $levels = MessageLevel::cases();
+        $levels   = MessageLevel::cases();
         $messages = '';
         foreach ($levels as $key) {
             $systemMessages = $this->messenger->getMessages();
-            if (!array_key_exists($key->value, $systemMessages)) {
+            if (! array_key_exists($key->value, $systemMessages)) {
                 continue;
             }
             $messages .= sprintf(

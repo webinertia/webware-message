@@ -20,7 +20,7 @@ final readonly class ConfigProvider
     public function getDependencies(): array
     {
         return [
-            'aliases' => [
+            'aliases'   => [
                 SystemMessengerInterface::class => SystemMessenger::class,
             ],
             'factories' => [
@@ -56,9 +56,9 @@ final readonly class ConfigProvider
     public function getViewHelpers(): array
     {
         return [
-            'aliases' => [
-                'messenger' => View\Helper\SystemMessenger::class,
-                'systemMessage' => View\Helper\SystemMessenger::class,
+            'aliases'   => [
+                'messenger'       => View\Helper\SystemMessenger::class,
+                'systemMessage'   => View\Helper\SystemMessenger::class,
                 'systemMessenger' => View\Helper\SystemMessenger::class,
             ],
             'factories' => [
@@ -71,9 +71,9 @@ final readonly class ConfigProvider
     public function __invoke(): array
     {
         return [
-            'dependencies' => $this->getDependencies(),
-            'templates' => $this->getTemplates(),
-            'view_helpers' => $this->getViewHelpers(),
+            'dependencies'                  => $this->getDependencies(),
+            'templates'                     => $this->getTemplates(),
+            'view_helpers'                  => $this->getViewHelpers(),
             SystemMessengerInterface::class => $this->getMessageTemplates(),
         ];
     }

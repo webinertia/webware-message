@@ -7,6 +7,9 @@ namespace Webware\Message;
 use JsonSerializable;
 use Stringable;
 
+/**
+ * @api
+ */
 interface MessageInterface extends JsonSerializable, Stringable
 {
     public function getMessage(): string;
