@@ -16,5 +16,7 @@ namespace Webware\Message\Exception;
 
 /**
  * Marker interface for package exceptions.
+ *
+ * @api
  */
 interface ExceptionInterface {}

@@ -32,6 +32,15 @@ final class AbstractMessageTest extends TestCase
      * @throws \PHPUnit\Exception
      */
     #[Test]
+    public function messageImplementsPackageContract(): void
+    {
+        self::assertInstanceOf(MessageInterface::class, $this->message('value'));
+    }
+
+    /**
+     * @throws \PHPUnit\Exception
+     */
+    #[Test]
     public function messageValueIsAccessibleThroughAllContractMethods(): void
     {
         $message = $this->message('Test message');
@@ -39,15 +48,6 @@ final class AbstractMessageTest extends TestCase
         self::assertSame('Test message', $message->getMessage());
         self::assertSame('Test message', $message->jsonSerialize());
         self::assertSame('Test message', (string) $message);
-    }
-
-    /**
-     * @throws \PHPUnit\Exception
-     */
-    #[Test]
-    public function messageImplementsPackageContract(): void
-    {
-        self::assertInstanceOf(MessageInterface::class, $this->message('value'));
     }
 
     private function message(string $value): AbstractMessage

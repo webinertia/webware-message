@@ -28,16 +28,6 @@ use Webware\Message\MessageLevel;
 final class MessageIconTest extends TestCase
 {
     /**
-     * @throws \PHPUnit\Exception
-     */
-    #[Test]
-    #[DataProvider('levelProvider')]
-    public function tryFromLevelMapsEachLevelToItsIcon(MessageLevel|string $level, MessageIcon $expected): void
-    {
-        self::assertSame($expected, MessageIcon::tryFromLevel($level));
-    }
-
-    /**
      * @return iterable<string, array{MessageLevel|string, MessageIcon}>
      */
     public static function levelProvider(): iterable
@@ -57,22 +47,32 @@ final class MessageIconTest extends TestCase
      * @throws \PHPUnit\Exception
      */
     #[Test]
-    public function tryFromLevelThrowsForUnknownStringLevel(): void
-    {
-        $this->expectException(UnexpectedValueException::class);
-
-        MessageIcon::tryFromLevel('unknown');
-    }
-
-    /**
-     * @throws \PHPUnit\Exception
-     */
-    #[Test]
     public function iconsExposeBootstrapIconNames(): void
     {
         self::assertSame('check-circle', MessageIcon::Success->value);
         self::assertSame('exclamation-octagon', MessageIcon::Danger->value);
         self::assertSame('exclamation-triangle', MessageIcon::Warning->value);
         self::assertSame('info-circle', MessageIcon::Info->value);
+    }
+
+    /**
+     * @throws \PHPUnit\Exception
+     */
+    #[Test]
+    #[DataProvider('levelProvider')]
+    public function tryFromLevelMapsEachLevelToItsIcon(MessageLevel|string $level, MessageIcon $expected): void
+    {
+        self::assertSame($expected, MessageIcon::tryFromLevel($level));
+    }
+
+    /**
+     * @throws \PHPUnit\Exception
+     */
+    #[Test]
+    public function tryFromLevelThrowsForUnknownStringLevel(): void
+    {
+        $this->expectException(UnexpectedValueException::class);
+
+        MessageIcon::tryFromLevel('unknown');
     }
 }

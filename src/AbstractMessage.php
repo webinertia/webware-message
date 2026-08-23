@@ -6,6 +6,9 @@ namespace Webware\Message;
 
 use Override;
 
+/**
+ * @internal
+ */
 abstract class AbstractMessage implements MessageInterface
 {
     protected string $message;

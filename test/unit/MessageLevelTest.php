@@ -26,6 +26,17 @@ final class MessageLevelTest extends TestCase
      * @throws \PHPUnit\Exception
      */
     #[Test]
+    public function levelCanBeResolvedFromValue(): void
+    {
+        self::assertSame(MessageLevel::Success, MessageLevel::tryFrom('success'));
+        self::assertSame(MessageLevel::Message, MessageLevel::tryFrom('message'));
+        self::assertNull(MessageLevel::tryFrom('unknown'));
+    }
+
+    /**
+     * @throws \PHPUnit\Exception
+     */
+    #[Test]
     public function levelValuesMatchSessionKeys(): void
     {
         self::assertSame('success', MessageLevel::Success->value);
@@ -33,16 +44,5 @@ final class MessageLevelTest extends TestCase
         self::assertSame('warning', MessageLevel::Warning->value);
         self::assertSame('info', MessageLevel::Info->value);
         self::assertSame('message', MessageLevel::Message->value);
-    }
-
-    /**
-     * @throws \PHPUnit\Exception
-     */
-    #[Test]
-    public function levelCanBeResolvedFromValue(): void
-    {
-        self::assertSame(MessageLevel::Success, MessageLevel::tryFrom('success'));
-        self::assertSame(MessageLevel::Message, MessageLevel::tryFrom('message'));
-        self::assertNull(MessageLevel::tryFrom('unknown'));
     }
 }

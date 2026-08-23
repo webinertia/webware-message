@@ -41,7 +41,7 @@ final class MessageMiddleware implements MiddlewareInterface
         /** @var SessionInterface|null $session */
         $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
 
-        if (!$session instanceof SessionInterface) {
+        if (! $session instanceof SessionInterface) {
             throw MissingSessionException::forMiddleware($this);
         }
 

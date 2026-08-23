@@ -60,7 +60,7 @@ final class MessageMiddlewareIntegrationTest extends TestCase
     public function messageStoredInFirstRequestSurvivesToSecondRequest(): void
     {
         $persistence = new PhpSessionPersistence();
-        $middleware = new MessageMiddleware(new SystemMessengerHelper());
+        $middleware  = new MessageMiddleware(new SystemMessengerHelper());
 
         $firstRequest = new ServerRequest();
         /** @var SessionInterface&SessionIdentifierAwareInterface $firstSession */
@@ -76,7 +76,7 @@ final class MessageMiddlewareIntegrationTest extends TestCase
             {
                 /** @var SystemMessenger|null $messenger */
                 $messenger = $request->getAttribute(SystemMessengerInterface::class);
-                if (!$messenger instanceof SystemMessenger) {
+                if (! $messenger instanceof SystemMessenger) {
                     Assert::fail('Expected a SystemMessenger instance in the request attribute.');
                 }
                 $messenger->send('Persisted integration message', MessageLevel::Success);
@@ -106,7 +106,7 @@ final class MessageMiddlewareIntegrationTest extends TestCase
             {
                 /** @var SystemMessenger|null $messenger */
                 $messenger = $request->getAttribute(SystemMessengerInterface::class);
-                if (!$messenger instanceof SystemMessenger) {
+                if (! $messenger instanceof SystemMessenger) {
                     Assert::fail('Expected a SystemMessenger instance in the request attribute.');
                 }
                 Assert::assertSame(
@@ -124,18 +124,6 @@ final class MessageMiddlewareIntegrationTest extends TestCase
     /**
      * @throws \PHPUnit\Exception
      */
-    private function sessionIdFromCookie(ResponseInterface $response): string
-    {
-        $matches = [];
-
-        self::assertSame(1, preg_match('/^[^=]+=([^;]+)/', $response->getHeaderLine('Set-Cookie'), $matches));
-
-        return $matches[1] ?? '';
-    }
-
-    /**
-     * @throws \PHPUnit\Exception
-     */
     #[Override]
     protected function tearDown(): void
     {
@@ -146,5 +134,17 @@ final class MessageMiddlewareIntegrationTest extends TestCase
         }
 
         session_id('');
+    }
+
+    /**
+     * @throws \PHPUnit\Exception
+     */
+    private function sessionIdFromCookie(ResponseInterface $response): string
+    {
+        $matches = [];
+
+        self::assertSame(1, preg_match('/^[^=]+=([^;]+)/', $response->getHeaderLine('Set-Cookie'), $matches));
+
+        return $matches[1] ?? '';
     }
 }

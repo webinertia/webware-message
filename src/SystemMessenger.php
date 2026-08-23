@@ -68,6 +68,9 @@ final class SystemMessenger implements SystemMessengerInterface
         $this->session->unset($this->sessionKey);
     }
 
+    /**
+     * @throws Exception\InvalidHopsValueException
+     */
     #[Override]
     public function danger(string $message, ?int $hops = 0, bool $now = true, string|int|null $id = null): void
     {
@@ -126,6 +129,9 @@ final class SystemMessenger implements SystemMessengerInterface
         return [] !== $this->currentMessages;
     }
 
+    /**
+     * @throws Exception\InvalidHopsValueException
+     */
     #[Override]
     public function info(string $message, ?int $hops = 0, bool $now = true, string|int|null $id = null): void
     {
@@ -138,7 +144,7 @@ final class SystemMessenger implements SystemMessengerInterface
     {
         $hasSessionMessages = $session->has($sessionKey);
 
-        if (!$hasSessionMessages) {
+        if (! $hasSessionMessages) {
             return;
         }
 
@@ -194,12 +200,12 @@ final class SystemMessenger implements SystemMessengerInterface
             );
         }
 
-        $messages = $this->getStoredMessages();
+        $messages                                                      = $this->getStoredMessages();
         $messages[$key instanceof MessageLevel ? $key->value : $key][] = [
             'message' => $message,
-            'hops' => $hops,
-            'key' => $key instanceof MessageLevel ? $key->value : $key,
-            'id' => $id,
+            'hops'    => $hops,
+            'key'     => $key instanceof MessageLevel ? $key->value : $key,
+            'id'      => $id,
         ];
         $this->session->set($this->sessionKey, $messages);
     }
@@ -213,6 +219,8 @@ final class SystemMessenger implements SystemMessengerInterface
      *
      * If you want the value to be visible only in the current request, you may
      * pass zero as the third argument.
+     *
+     * @throws Exception\InvalidHopsValueException
      */
     #[Override]
     public function sendNow(
@@ -223,15 +231,18 @@ final class SystemMessenger implements SystemMessengerInterface
     ): void {
         $this->currentMessages[$key instanceof MessageLevel ? $key->value : $key][] = [
             'message' => $message,
-            'hops' => 0,
-            'key' => $key instanceof MessageLevel ? $key->value : $key,
-            'id' => $id,
+            'hops'    => 0,
+            'key'     => $key instanceof MessageLevel ? $key->value : $key,
+            'id'      => $id,
         ];
         if (0 < ($hops ?? 1)) {
             $this->send($message, $key, $hops, $id);
         }
     }
 
+    /**
+     * @throws Exception\InvalidHopsValueException
+     */
     #[Override]
     public function success(string $message, ?int $hops = 0, bool $now = true, string|int|null $id = null): void
     {
@@ -240,6 +251,9 @@ final class SystemMessenger implements SystemMessengerInterface
             : $this->send($message, MessageLevel::Success, $hops, $id);
     }
 
+    /**
+     * @throws Exception\InvalidHopsValueException
+     */
     #[Override]
     public function warning(string $message, ?int $hops = 0, bool $now = true, string|int|null $id = null): void
     {
@@ -256,7 +270,7 @@ final class SystemMessenger implements SystemMessengerInterface
         /** @var array<string, list<array{message: string, hops: int, key: string, id: string|int|null}>>|null $messages */
         $messages = $this->session->get($sessionKey ?? $this->sessionKey, []);
 
-        if (!is_array($messages)) {
+        if (! is_array($messages)) {
             return [];
         }
 

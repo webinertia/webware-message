@@ -46,7 +46,7 @@ final class ConfigProviderTest extends TestCase
 
         self::assertSame(
             [
-                'aliases' => [
+                'aliases'   => [
                     SystemMessengerInterface::class => SystemMessenger::class,
                 ],
                 'factories' => [
@@ -101,9 +101,9 @@ final class ConfigProviderTest extends TestCase
 
         self::assertSame(
             [
-                'aliases' => [
-                    'messenger' => SystemMessengerHelper::class,
-                    'systemMessage' => SystemMessengerHelper::class,
+                'aliases'   => [
+                    'messenger'       => SystemMessengerHelper::class,
+                    'systemMessage'   => SystemMessengerHelper::class,
                     'systemMessenger' => SystemMessengerHelper::class,
                 ],
                 'factories' => [
@@ -126,9 +126,9 @@ final class ConfigProviderTest extends TestCase
 
         self::assertSame(
             [
-                'dependencies' => $provider->getDependencies(),
-                'templates' => $provider->getTemplates(),
-                'view_helpers' => $provider->getViewHelpers(),
+                'dependencies'                  => $provider->getDependencies(),
+                'templates'                     => $provider->getTemplates(),
+                'view_helpers'                  => $provider->getViewHelpers(),
                 SystemMessengerInterface::class => $provider->getMessageTemplates(),
             ],
             $config,

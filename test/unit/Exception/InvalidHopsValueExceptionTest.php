@@ -30,6 +30,16 @@ final class InvalidHopsValueExceptionTest extends TestCase
      * @throws \PHPUnit\Exception
      */
     #[Test]
+    public function exceptionExtendsInvalidArgumentExceptionAndPackageMarker(): void
+    {
+        self::assertInstanceOf(InvalidArgumentException::class, InvalidHopsValueException::valueTooLow('info', 0));
+        self::assertInstanceOf(ExceptionInterface::class, InvalidHopsValueException::valueTooLow('info', 0));
+    }
+
+    /**
+     * @throws \PHPUnit\Exception
+     */
+    #[Test]
     public function valueTooLowBuildsMessageWithKeyAndReceivedHops(): void
     {
         $exception = InvalidHopsValueException::valueTooLow('info', 0);
@@ -38,15 +48,5 @@ final class InvalidHopsValueExceptionTest extends TestCase
             'Hops value specified for message "info" was too low; must be greater than 0, received 0',
             $exception->getMessage(),
         );
-    }
-
-    /**
-     * @throws \PHPUnit\Exception
-     */
-    #[Test]
-    public function exceptionExtendsInvalidArgumentExceptionAndPackageMarker(): void
-    {
-        self::assertInstanceOf(InvalidArgumentException::class, InvalidHopsValueException::valueTooLow('info', 0));
-        self::assertInstanceOf(ExceptionInterface::class, InvalidHopsValueException::valueTooLow('info', 0));
     }
 }

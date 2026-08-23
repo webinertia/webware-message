@@ -14,6 +14,9 @@ declare(strict_types=1);
 
 namespace Webware\Message;
 
+/**
+ * @api
+ */
 interface MessageLevelCapableInterface
 {
     public function getMessageLevel(): MessageLevel;

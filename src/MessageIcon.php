@@ -19,20 +19,20 @@ use UnexpectedValueException;
 enum MessageIcon: string
 {
     case Success = 'check-circle';
-    case Danger = 'exclamation-octagon';
+    case Danger  = 'exclamation-octagon';
     case Warning = 'exclamation-triangle';
-    case Info = 'info-circle';
+    case Info    = 'info-circle';
 
     public static function tryFromLevel(MessageLevel|string $messageLevel): self
     {
-        if (!$messageLevel instanceof MessageLevel) {
+        if (! $messageLevel instanceof MessageLevel) {
             $messageLevel = MessageLevel::tryFrom($messageLevel);
         }
 
         return match ($messageLevel) {
-            MessageLevel::Success => self::Success,
-            MessageLevel::Danger => self::Danger,
-            MessageLevel::Warning => self::Warning,
+            MessageLevel::Success                     => self::Success,
+            MessageLevel::Danger                      => self::Danger,
+            MessageLevel::Warning                     => self::Warning,
             MessageLevel::Info, MessageLevel::Message => self::Info,
             null => throw new UnexpectedValueException('Invalid message level value.'),
         };

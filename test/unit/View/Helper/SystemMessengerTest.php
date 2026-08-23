@@ -45,29 +45,6 @@ final class SystemMessengerTest extends TestCase
      * @throws \PHPUnit\Exception
      */
     #[Test]
-    public function setMessengerStoresInstance(): void
-    {
-        $helper = new SystemMessengerHelper();
-        $messenger = $this->messengerWithMessages([]);
-
-        $helper->setMessenger($messenger);
-
-        self::assertSame($messenger, $helper->getMessenger());
-    }
-
-    /**
-     * @throws \PHPUnit\Exception
-     */
-    #[Test]
-    public function invokeReturnsEmptyStringWhenNoMessengerIsSet(): void
-    {
-        self::assertSame('', (new SystemMessengerHelper())());
-    }
-
-    /**
-     * @throws \PHPUnit\Exception
-     */
-    #[Test]
     public function invokeRendersToastForEachStoredMessageLevel(): void
     {
         $helper = new SystemMessengerHelper();
@@ -75,7 +52,7 @@ final class SystemMessengerTest extends TestCase
             'success' => [
                 ['message' => 'Saved!', 'hops' => 1, 'key' => 'success', 'id' => null],
             ],
-            'info' => [
+            'info'    => [
                 ['message' => 'Hello', 'hops' => 1, 'key' => 'info', 'id' => null],
                 ['message' => 'World', 'hops' => 1, 'key' => 'info', 'id' => null],
             ],
@@ -98,9 +75,32 @@ final class SystemMessengerTest extends TestCase
      * @throws \PHPUnit\Exception
      */
     #[Test]
+    public function invokeReturnsEmptyStringWhenNoMessengerIsSet(): void
+    {
+        self::assertSame('', (new SystemMessengerHelper())());
+    }
+
+    /**
+     * @throws \PHPUnit\Exception
+     */
+    #[Test]
     public function messageKeyConstantMatchesSessionKey(): void
     {
         self::assertSame(SystemMessengerInterface::SESSION_KEY, SystemMessengerHelper::MESSAGE_KEY);
+    }
+
+    /**
+     * @throws \PHPUnit\Exception
+     */
+    #[Test]
+    public function setMessengerStoresInstance(): void
+    {
+        $helper    = new SystemMessengerHelper();
+        $messenger = $this->messengerWithMessages([]);
+
+        $helper->setMessenger($messenger);
+
+        self::assertSame($messenger, $helper->getMessenger());
     }
 
     /**
