@@ -33,19 +33,6 @@ final readonly class ConfigProvider
     }
 
     /** @return array<string, mixed> */
-    public function getMessageTemplates(): array
-    {
-        return [
-            SystemMessengerInterface::MESSAGE_TEMPLATES => [
-                // YourCommand::class => [
-                //     NotificationCapableInterface::MESSAGE_SUCCESS => 'Your success message',
-                //     NotificationCapableInterface::MESSAGE_FAILURE => 'Your failure message',
-                // ],
-            ],
-        ];
-    }
-
-    /** @return array<string, mixed> */
     public function getTemplates(): array
     {
         return [
@@ -74,10 +61,9 @@ final readonly class ConfigProvider
     public function __invoke(): array
     {
         return [
-            'dependencies'                  => $this->getDependencies(),
-            'templates'                     => $this->getTemplates(),
-            'view_helpers'                  => $this->getViewHelpers(),
-            SystemMessengerInterface::class => $this->getMessageTemplates(),
+            'dependencies' => $this->getDependencies(),
+            'templates'    => $this->getTemplates(),
+            'view_helpers' => $this->getViewHelpers(),
         ];
     }
 }

@@ -31,7 +31,6 @@ use function dirname;
 
 #[CoversClass(ConfigProvider::class)]
 #[CoversMethod(ConfigProvider::class, 'getDependencies')]
-#[CoversMethod(ConfigProvider::class, 'getMessageTemplates')]
 #[CoversMethod(ConfigProvider::class, 'getTemplates')]
 #[CoversMethod(ConfigProvider::class, 'getViewHelpers')]
 #[CoversMethod(ConfigProvider::class, '__invoke')]
@@ -58,22 +57,6 @@ final class ConfigProviderTest extends TestCase
                 ],
             ],
             $provider->getDependencies(),
-        );
-    }
-
-    /**
-     * @throws \PHPUnit\Exception
-     */
-    #[Test]
-    public function getMessageTemplatesReturnsEmptyTemplateMapByDefault(): void
-    {
-        $provider = new ConfigProvider();
-
-        self::assertSame(
-            [
-                SystemMessengerInterface::MESSAGE_TEMPLATES => [],
-            ],
-            $provider->getMessageTemplates(),
         );
     }
 
@@ -130,10 +113,9 @@ final class ConfigProviderTest extends TestCase
 
         self::assertSame(
             [
-                'dependencies'                  => $provider->getDependencies(),
-                'templates'                     => $provider->getTemplates(),
-                'view_helpers'                  => $provider->getViewHelpers(),
-                SystemMessengerInterface::class => $provider->getMessageTemplates(),
+                'dependencies' => $provider->getDependencies(),
+                'templates'    => $provider->getTemplates(),
+                'view_helpers' => $provider->getViewHelpers(),
             ],
             $config,
         );

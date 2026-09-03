@@ -13,8 +13,7 @@ namespace Webware\Message;
  */
 interface SystemMessengerInterface
 {
-    public const string MESSAGE_TEMPLATES = 'message_templates';
-    public const string SESSION_KEY       = self::class . '::SYSTEM_MESSENGER_NEXT';
+    public const string SESSION_KEY = self::class . '::SYSTEM_MESSENGER_NEXT';
 
     public function addHop(): void;
 
