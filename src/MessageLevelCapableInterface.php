@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the Webware Webware Message package.
+ * This file is part of the Webware Message package.
  *
  * Copyright (c) 2026 Joey Smith <jsmith@webinertia.net>
  * and contributors.
