@@ -64,6 +64,7 @@ final class NotificationMiddlewareTest extends TestCase
     public function processPushesFailureNotification(): void
     {
         $response        = $this->createStub(ResponseInterface::class);
+        $capturedHops    = null;
         $capturedLevel   = null;
         $capturedMessage = null;
 
@@ -71,7 +72,12 @@ final class NotificationMiddlewareTest extends TestCase
         $messenger->expects($this->once())
             ->method('sendNow')
             ->willReturnCallback(
-                static function (string $message, MessageLevel $key) use (&$capturedLevel, &$capturedMessage): void {
+                static function (string $message, MessageLevel $key, ?int $hops = 0) use (
+                    &$capturedHops,
+                    &$capturedLevel,
+                    &$capturedMessage,
+                ): void {
+                    $capturedHops    = $hops;
                     $capturedLevel   = $key;
                     $capturedMessage = $message;
                 },
@@ -91,6 +97,7 @@ final class NotificationMiddlewareTest extends TestCase
         self::assertSame($response, new NotificationMiddleware()->process($request, $handler));
         self::assertSame('Role not saved.', $capturedMessage);
         self::assertSame(MessageLevel::Warning, $capturedLevel);
+        self::assertSame(0, $capturedHops);
     }
 
     /**
@@ -100,6 +107,7 @@ final class NotificationMiddlewareTest extends TestCase
     public function processPushesSuccessNotification(): void
     {
         $response        = $this->createStub(ResponseInterface::class);
+        $capturedHops    = null;
         $capturedLevel   = null;
         $capturedMessage = null;
 
@@ -107,7 +115,12 @@ final class NotificationMiddlewareTest extends TestCase
         $messenger->expects($this->once())
             ->method('sendNow')
             ->willReturnCallback(
-                static function (string $message, MessageLevel $key) use (&$capturedLevel, &$capturedMessage): void {
+                static function (string $message, MessageLevel $key, ?int $hops = 0) use (
+                    &$capturedHops,
+                    &$capturedLevel,
+                    &$capturedMessage,
+                ): void {
+                    $capturedHops    = $hops;
                     $capturedLevel   = $key;
                     $capturedMessage = $message;
                 },
@@ -127,6 +140,7 @@ final class NotificationMiddlewareTest extends TestCase
         self::assertSame($response, new NotificationMiddleware()->process($request, $handler));
         self::assertSame('Role saved.', $capturedMessage);
         self::assertSame(MessageLevel::Success, $capturedLevel);
+        self::assertSame(0, $capturedHops);
     }
 
     /**
