@@ -21,6 +21,7 @@ use PHPUnit\Framework\TestCase;
 use Webware\Message\ConfigProvider;
 use Webware\Message\Middleware\MessageMiddleware;
 use Webware\Message\Middleware\MessageMiddlewareFactory;
+use Webware\Message\Middleware\NotificationMiddleware;
 use Webware\Message\SystemMessenger;
 use Webware\Message\SystemMessengerInterface;
 use Webware\Message\View\Helper\SystemMessenger as SystemMessengerHelper;
@@ -40,17 +41,20 @@ final class ConfigProviderTest extends TestCase
      * @throws \PHPUnit\Exception
      */
     #[Test]
-    public function getDependenciesReturnsMessengerAliasAndMiddlewareFactory(): void
+    public function getDependenciesReturnsAliasesFactoriesAndInvokables(): void
     {
         $provider = new ConfigProvider();
 
         self::assertSame(
             [
-                'aliases'   => [
+                'aliases'    => [
                     SystemMessengerInterface::class => SystemMessenger::class,
                 ],
-                'factories' => [
+                'factories'  => [
                     MessageMiddleware::class => MessageMiddlewareFactory::class,
+                ],
+                'invokables' => [
+                    NotificationMiddleware::class => NotificationMiddleware::class,
                 ],
             ],
             $provider->getDependencies(),

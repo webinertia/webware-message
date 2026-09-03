@@ -20,11 +20,14 @@ final readonly class ConfigProvider
     public function getDependencies(): array
     {
         return [
-            'aliases'   => [
+            'aliases'    => [
                 SystemMessengerInterface::class => SystemMessenger::class,
             ],
-            'factories' => [
+            'factories'  => [
                 Middleware\MessageMiddleware::class => Middleware\MessageMiddlewareFactory::class,
+            ],
+            'invokables' => [
+                Middleware\NotificationMiddleware::class => Middleware\NotificationMiddleware::class,
             ],
         ];
     }
