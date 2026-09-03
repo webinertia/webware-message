@@ -58,6 +58,37 @@ final class SystemMessengerTest extends TestCase
      * @throws \PHPUnit\Exception
      */
     #[Test]
+    public function addHopProcessesEntriesAfterAHopsMessage(): void
+    {
+        $this->storage[SystemMessengerInterface::SESSION_KEY] = [
+            'success' => [
+                ['message' => 'Fresh', 'hops' => 2, 'key' => 'success', 'id' => null],
+                ['message' => 'Sticky', 'hops' => 1, 'key' => 'success', 'id' => null],
+            ],
+        ];
+
+        $messenger = new SystemMessenger($this->session, SystemMessengerInterface::SESSION_KEY);
+        $messenger->addHop();
+
+        /** @var array<string, list<array{message: string, hops: int, key: string, id: string|int|null}>> $current */
+        $current = new ReflectionProperty(SystemMessenger::class, 'currentMessages')->getValue($messenger);
+
+        self::assertSame(
+            [
+                'success' => [
+                    ['message' => 'Fresh', 'hops' => 1, 'key' => 'success', 'id' => null],
+                    ['message' => 'Sticky', 'hops' => 1, 'key' => 'success', 'id' => null],
+                ],
+            ],
+            $current,
+        );
+    }
+
+    /**
+     * @throws ReflectionException
+     * @throws \PHPUnit\Exception
+     */
+    #[Test]
     public function addHopProlongsOnlyZeroHopMessages(): void
     {
         $this->storage[SystemMessengerInterface::SESSION_KEY] = [
@@ -291,6 +322,33 @@ final class SystemMessengerTest extends TestCase
      * @throws \PHPUnit\Exception
      */
     #[Test]
+    public function prepareMessagesContinuesAfterClearingAnExpiredLevel(): void
+    {
+        $this->storage[SystemMessengerInterface::SESSION_KEY] = [
+            'success' => [
+                ['message' => 'Expired', 'hops' => 0, 'key' => 'success', 'id' => null],
+            ],
+            'info'    => [
+                ['message' => 'Notice', 'hops' => 1, 'key' => 'info', 'id' => null],
+            ],
+        ];
+
+        new SystemMessenger($this->session, SystemMessengerInterface::SESSION_KEY);
+
+        self::assertSame(
+            [
+                'info' => [
+                    ['message' => 'Notice', 'hops' => 0, 'key' => 'info', 'id' => null],
+                ],
+            ],
+            $this->storage[SystemMessengerInterface::SESSION_KEY] ?? null,
+        );
+    }
+
+    /**
+     * @throws \PHPUnit\Exception
+     */
+    #[Test]
     public function prepareMessagesIsPubliclyCallableAndDecrementsStoredHops(): void
     {
         $this->storage[SystemMessengerInterface::SESSION_KEY] = [
@@ -435,6 +493,26 @@ final class SystemMessengerTest extends TestCase
         $nextRequest = new SystemMessenger($this->session, SystemMessengerInterface::SESSION_KEY);
 
         self::assertSame(['Null hops now'], $nextRequest->getMessage(MessageLevel::Success));
+    }
+
+    /**
+     * @throws \PHPUnit\Exception
+     */
+    #[Test]
+    public function sendNowWithNullHopsStoresSingleHop(): void
+    {
+        $messenger = new SystemMessenger($this->session, SystemMessengerInterface::SESSION_KEY);
+
+        $messenger->sendNow('Null hops now', MessageLevel::Success, null);
+
+        self::assertSame(
+            [
+                'success' => [
+                    ['message' => 'Null hops now', 'hops' => 1, 'key' => 'success', 'id' => null],
+                ],
+            ],
+            $this->storage[SystemMessengerInterface::SESSION_KEY] ?? null,
+        );
     }
 
     /**

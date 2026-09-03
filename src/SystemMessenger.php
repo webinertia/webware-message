@@ -235,7 +235,9 @@ final class SystemMessenger implements SystemMessengerInterface
             'key'     => $key instanceof MessageLevel ? $key->value : $key,
             'id'      => $id,
         ];
-        if (0 < ($hops ?? 1)) {
+        $hops ??= 1;
+
+        if (0 < $hops) {
             $this->send($message, $key, $hops, $id);
         }
     }
