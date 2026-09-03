@@ -15,11 +15,14 @@ declare(strict_types=1);
 namespace Webware\Message;
 
 /**
+ * Implemented by messages that expose the user-facing notification text for
+ * their success and failure outcomes.
+ *
  * @api
  */
-interface MessageLevelCapableInterface
+interface NotificationCapableInterface
 {
-    public function getMessageLevel(): MessageLevel;
+    public string $successMessage { get; }
 
-    public function setMessageLevel(MessageLevel $messageLevel): self;
+    public string $failureMessage { get; }
 }

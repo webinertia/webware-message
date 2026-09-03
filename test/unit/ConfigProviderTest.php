@@ -21,6 +21,7 @@ use PHPUnit\Framework\TestCase;
 use Webware\Message\ConfigProvider;
 use Webware\Message\Middleware\MessageMiddleware;
 use Webware\Message\Middleware\MessageMiddlewareFactory;
+use Webware\Message\Middleware\NotificationMiddleware;
 use Webware\Message\SystemMessenger;
 use Webware\Message\SystemMessengerInterface;
 use Webware\Message\View\Helper\SystemMessenger as SystemMessengerHelper;
@@ -30,7 +31,6 @@ use function dirname;
 
 #[CoversClass(ConfigProvider::class)]
 #[CoversMethod(ConfigProvider::class, 'getDependencies')]
-#[CoversMethod(ConfigProvider::class, 'getMessageTemplates')]
 #[CoversMethod(ConfigProvider::class, 'getTemplates')]
 #[CoversMethod(ConfigProvider::class, 'getViewHelpers')]
 #[CoversMethod(ConfigProvider::class, '__invoke')]
@@ -40,36 +40,23 @@ final class ConfigProviderTest extends TestCase
      * @throws \PHPUnit\Exception
      */
     #[Test]
-    public function getDependenciesReturnsMessengerAliasAndMiddlewareFactory(): void
+    public function getDependenciesReturnsAliasesFactoriesAndInvokables(): void
     {
         $provider = new ConfigProvider();
 
         self::assertSame(
             [
-                'aliases'   => [
+                'aliases'    => [
                     SystemMessengerInterface::class => SystemMessenger::class,
                 ],
-                'factories' => [
+                'factories'  => [
                     MessageMiddleware::class => MessageMiddlewareFactory::class,
+                ],
+                'invokables' => [
+                    NotificationMiddleware::class => NotificationMiddleware::class,
                 ],
             ],
             $provider->getDependencies(),
-        );
-    }
-
-    /**
-     * @throws \PHPUnit\Exception
-     */
-    #[Test]
-    public function getMessageTemplatesReturnsEmptyTemplateMapByDefault(): void
-    {
-        $provider = new ConfigProvider();
-
-        self::assertSame(
-            [
-                SystemMessengerInterface::MESSAGE_TEMPLATES => [],
-            ],
-            $provider->getMessageTemplates(),
         );
     }
 
@@ -126,10 +113,9 @@ final class ConfigProviderTest extends TestCase
 
         self::assertSame(
             [
-                'dependencies'                  => $provider->getDependencies(),
-                'templates'                     => $provider->getTemplates(),
-                'view_helpers'                  => $provider->getViewHelpers(),
-                SystemMessengerInterface::class => $provider->getMessageTemplates(),
+                'dependencies' => $provider->getDependencies(),
+                'templates'    => $provider->getTemplates(),
+                'view_helpers' => $provider->getViewHelpers(),
             ],
             $config,
         );
