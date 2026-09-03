@@ -1,6 +1,6 @@
 # Configuration Reference
 
-`Webware\Message\ConfigProvider` registers four sections.
+`Webware\Message\ConfigProvider` registers three sections.
 
 ## Dependencies
 
@@ -12,6 +12,9 @@
     ],
     'factories' => [
         MessageMiddleware::class => MessageMiddlewareFactory::class,
+    ],
+    'invokables' => [
+        NotificationMiddleware::class => NotificationMiddleware::class,
     ],
 ]
 ```
@@ -49,20 +52,3 @@ through the helper.
     ],
 ]
 ```
-
-## Message Templates
-
-```php
-// getMessageTemplates()
-[
-    SystemMessengerInterface::MESSAGE_TEMPLATES => [
-        // YourCommand::class => [
-        //     NotificationCapableInterface::MESSAGE_SUCCESS => 'Your success message',
-        //     NotificationCapableInterface::MESSAGE_FAILURE => 'Your failure message',
-        // ],
-    ],
-]
-```
-
-Applications may map command classes to success/failure template strings,
-keyed under `SystemMessengerInterface::MESSAGE_TEMPLATES` (`message_templates`).

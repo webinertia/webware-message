@@ -39,3 +39,58 @@ use Webware\Message\SystemMessengerInterface;
 
 $messenger = $request->getAttribute(SystemMessengerInterface::class);
 ```
+
+## Notification middleware
+
+`Webware\Message\Middleware\NotificationMiddleware` turns a completed command
+result into a flash notification. It reads the message-bus `CommandResult`
+request attribute and pushes a success or warning message when the dispatched
+command implements `NotificationCapableInterface`.
+
+### Wiring
+
+The middleware must run after `MessageMiddleware` (so the
+`SystemMessengerInterface` request attribute exists) and after the middleware
+that dispatches the command and stores the `CommandResult` attribute:
+
+```php
+// config/pipeline.php
+$app->pipe(\Mezzio\Session\SessionMiddleware::class);
+$app->pipe(\Webware\Message\Middleware\MessageMiddleware::class);
+// ... routing and command-processing middleware ...
+$app->pipe(\Webware\Message\Middleware\NotificationMiddleware::class);
+```
+
+`NotificationMiddleware` is registered by `ConfigProvider` as an invokable and
+requires no constructor dependencies.
+
+### Behavior
+
+For each request, the middleware:
+
+1. Reads the `CommandResult` and `SystemMessengerInterface` request attributes.
+2. Returns immediately when either attribute is missing.
+3. Reads the dispatched command via `CommandResult::getCommand()`.
+4. Returns immediately when the command does not implement
+   `NotificationCapableInterface`.
+5. Maps the result status to a flash message:
+   - `MessageStatus::Success` → `$successMessage` (success level)
+   - `MessageStatus::Failure` → `$failureMessage` (warning level)
+6. Delegates to the next handler.
+
+### NotificationCapableInterface
+
+Commands that want a flash notification declare their user-facing text by
+implementing `NotificationCapableInterface`:
+
+```php
+use Webware\Message\NotificationCapableInterface;
+use Webware\MessageBus\Command\CommandInterface;
+
+final readonly class SaveRoleCommand implements CommandInterface, NotificationCapableInterface
+{
+    public string $successMessage { get => 'Role saved.'; }
+
+    public string $failureMessage { get => 'Role could not be saved.'; }
+}
+```
