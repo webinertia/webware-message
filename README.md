@@ -30,13 +30,13 @@ composer require webware/webware-message
 
 ### Middleware
 
-Register `Webware\Message\Middleware\MessageMiddleware` in the route pipeline
+Register `Webware\Message\Http\Middleware\MessageMiddleware` in the route pipeline
 (after the session middleware):
 
 ```php
 // config/pipeline.php
 $app->pipe(Mezzio\Session\SessionMiddleware::class);
-$app->pipe(Webware\Message\Middleware\MessageMiddleware::class);
+$app->pipe(Webware\Message\Http\Middleware\MessageMiddleware::class);
 ```
 
 ### Sending messages

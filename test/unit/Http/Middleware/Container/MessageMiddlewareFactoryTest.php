@@ -12,7 +12,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace WebwareTest\Message\Middleware;
+namespace WebwareTest\Message\Http\Middleware\Container;
 
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\HelperPluginManager;
@@ -23,8 +23,8 @@ use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
-use Webware\Message\Middleware\MessageMiddleware;
-use Webware\Message\Middleware\MessageMiddlewareFactory;
+use Webware\Message\Http\Middleware\Container\MessageMiddlewareFactory;
+use Webware\Message\Http\Middleware\MessageMiddleware;
 use Webware\Message\View\Helper\SystemMessenger;
 
 #[CoversClass(MessageMiddlewareFactory::class)]
