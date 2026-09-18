@@ -14,16 +14,10 @@ declare(strict_types=1);
 
 namespace WebwareTest\Message\Exception;
 
-use Laminas\Diactoros\Response;
-use Override;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\CoversMethod;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\MiddlewareInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 use RuntimeException;
 use Webware\Message\Exception\ExceptionInterface;
 use Webware\Message\Exception\MissingSessionException;
@@ -40,8 +34,7 @@ final class MissingSessionExceptionTest extends TestCase
     #[Test]
     public function exceptionExtendsRuntimeExceptionAndPackageMarker(): void
     {
-        $middleware = $this->createStub(MiddlewareInterface::class);
-        $exception  = MissingSessionException::forMiddleware($middleware);
+        $exception = MissingSessionException::forMiddleware(self::class);
 
         self::assertInstanceOf(RuntimeException::class, $exception);
         self::assertInstanceOf(ExceptionInterface::class, $exception);
@@ -53,19 +46,9 @@ final class MissingSessionExceptionTest extends TestCase
     #[Test]
     public function forMiddlewareNamesOffendingMiddleware(): void
     {
-        $middleware = new class implements MiddlewareInterface {
-            #[Override]
-            public function process(
-                ServerRequestInterface $request,
-                RequestHandlerInterface $handler,
-            ): ResponseInterface {
-                return new Response();
-            }
-        };
+        $exception = MissingSessionException::forMiddleware(self::class);
 
-        $exception = MissingSessionException::forMiddleware($middleware);
-
-        self::assertTrue(str_contains($exception->getMessage(), $middleware::class));
+        self::assertTrue(str_contains($exception->getMessage(), self::class));
         self::assertTrue(str_contains($exception->getMessage(), 'missing session attribute'));
     }
 }

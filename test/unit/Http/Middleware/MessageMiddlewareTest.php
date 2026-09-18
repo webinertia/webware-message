@@ -12,7 +12,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace WebwareTest\Message\Middleware;
+namespace WebwareTest\Message\Http\Middleware;
 
 use Laminas\Diactoros\ServerRequest;
 use Mezzio\Session\SessionInterface;
@@ -25,7 +25,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Webware\Message\Exception\MissingSessionException;
-use Webware\Message\Middleware\MessageMiddleware;
+use Webware\Message\Http\Middleware\MessageMiddleware;
 use Webware\Message\SystemMessenger;
 use Webware\Message\SystemMessengerInterface;
 use Webware\Message\View\Helper\SystemMessenger as SystemMessengerHelper;

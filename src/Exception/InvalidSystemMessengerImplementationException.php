@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Webware\Message\Exception;
 
 use InvalidArgumentException;
-use Webware\Message\Middleware\MessageMiddleware;
+use Webware\Message\Http\Middleware\MessageMiddleware;
 use Webware\Message\SystemMessengerInterface;
 
 use function sprintf;

@@ -14,18 +14,20 @@ declare(strict_types=1);
 
 namespace Webware\Message\Exception;
 
-use Psr\Http\Server\MiddlewareInterface;
 use RuntimeException;
 
 use function sprintf;
 
 final class MissingSessionException extends RuntimeException implements ExceptionInterface
 {
-    public static function forMiddleware(MiddlewareInterface $middleware): self
+    /**
+     * @param class-string $middlewareClass
+     */
+    public static function forMiddleware(string $middlewareClass): self
     {
         return new self(sprintf(
             'Unable to create SystemMessenger in %s; missing session attribute',
-            $middleware::class,
+            $middlewareClass,
         ));
     }
 }

@@ -20,7 +20,7 @@ use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Webware\Message\Exception\ExceptionInterface;
 use Webware\Message\Exception\InvalidSystemMessengerImplementationException;
-use Webware\Message\Middleware\MessageMiddleware;
+use Webware\Message\Http\Middleware\MessageMiddleware;
 use Webware\Message\SystemMessengerInterface;
 
 use function str_contains;

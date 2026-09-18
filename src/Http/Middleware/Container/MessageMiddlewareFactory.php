@@ -12,12 +12,13 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Webware\Message\Middleware;
+namespace Webware\Message\Http\Middleware\Container;
 
 use Laminas\View\HelperPluginManager;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
+use Webware\Message\Http\Middleware\MessageMiddleware;
 use Webware\Message\View\Helper\SystemMessenger;
 
 final class MessageMiddlewareFactory

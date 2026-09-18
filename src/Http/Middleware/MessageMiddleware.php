@@ -12,7 +12,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Webware\Message\Middleware;
+namespace Webware\Message\Http\Middleware;
 
 use Mezzio\Session\SessionInterface;
 use Mezzio\Session\SessionMiddleware;
@@ -42,7 +42,7 @@ final class MessageMiddleware implements MiddlewareInterface
         $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
 
         if (! $session instanceof SessionInterface) {
-            throw MissingSessionException::forMiddleware($this);
+            throw MissingSessionException::forMiddleware(self::class);
         }
 
         // create an instance of the SystemMessenger

@@ -12,7 +12,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace WebwareTest\Message\Middleware;
+namespace WebwareTest\Message\Http\Middleware;
 
 use Laminas\Diactoros\ServerRequest;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -21,8 +21,8 @@ use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Webware\Message\Http\Middleware\NotificationMiddleware;
 use Webware\Message\MessageLevel;
-use Webware\Message\Middleware\NotificationMiddleware;
 use Webware\Message\NotificationCapableInterface;
 use Webware\Message\SystemMessengerInterface;
 use Webware\MessageBus\Command\CommandInterface;

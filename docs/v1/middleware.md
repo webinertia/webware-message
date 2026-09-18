@@ -1,6 +1,6 @@
 # Middleware
 
-`Webware\Message\Middleware\MessageMiddleware` builds the per-request
+`Webware\Message\Http\Middleware\MessageMiddleware` builds the per-request
 `SystemMessenger` from the session, injects it into the view helper, and
 exposes it as a request attribute.
 
@@ -11,7 +11,7 @@ The Mezzio session middleware must run first so the session attribute exists:
 ```php
 // config/pipeline.php
 $app->pipe(\Mezzio\Session\SessionMiddleware::class);
-$app->pipe(\Webware\Message\Middleware\MessageMiddleware::class);
+$app->pipe(\Webware\Message\Http\Middleware\MessageMiddleware::class);
 ```
 
 The middleware is registered by `ConfigProvider`; the factory resolves the
@@ -42,7 +42,7 @@ $messenger = $request->getAttribute(SystemMessengerInterface::class);
 
 ## Notification middleware
 
-`Webware\Message\Middleware\NotificationMiddleware` turns a completed command
+`Webware\Message\Http\Middleware\NotificationMiddleware` turns a completed command
 result into a flash notification. It reads the message-bus `CommandResult`
 request attribute and pushes a success or warning message when the dispatched
 command implements `NotificationCapableInterface`.
@@ -56,9 +56,9 @@ that dispatches the command and stores the `CommandResult` attribute:
 ```php
 // config/pipeline.php
 $app->pipe(\Mezzio\Session\SessionMiddleware::class);
-$app->pipe(\Webware\Message\Middleware\MessageMiddleware::class);
+$app->pipe(\Webware\Message\Http\Middleware\MessageMiddleware::class);
 // ... routing and command-processing middleware ...
-$app->pipe(\Webware\Message\Middleware\NotificationMiddleware::class);
+$app->pipe(\Webware\Message\Http\Middleware\NotificationMiddleware::class);
 ```
 
 `NotificationMiddleware` is registered by `ConfigProvider` as an invokable and
