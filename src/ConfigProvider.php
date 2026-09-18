@@ -24,10 +24,10 @@ final readonly class ConfigProvider
                 SystemMessengerInterface::class => SystemMessenger::class,
             ],
             'factories'  => [
-                Middleware\MessageMiddleware::class => Middleware\MessageMiddlewareFactory::class,
+                Http\Middleware\MessageMiddleware::class => Http\Middleware\Container\MessageMiddlewareFactory::class,
             ],
             'invokables' => [
-                Middleware\NotificationMiddleware::class => Middleware\NotificationMiddleware::class,
+                Http\Middleware\NotificationMiddleware::class => Http\Middleware\NotificationMiddleware::class,
             ],
         ];
     }

@@ -11,10 +11,10 @@
         SystemMessengerInterface::class => SystemMessenger::class,
     ],
     'factories' => [
-        MessageMiddleware::class => MessageMiddlewareFactory::class,
+        Http\Middleware\MessageMiddleware::class => Http\Middleware\Container\MessageMiddlewareFactory::class,
     ],
     'invokables' => [
-        NotificationMiddleware::class => NotificationMiddleware::class,
+        Http\Middleware\NotificationMiddleware::class => Http\Middleware\NotificationMiddleware::class,
     ],
 ]
 ```
