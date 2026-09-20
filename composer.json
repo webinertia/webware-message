@@ -38,7 +38,7 @@
         "roave/backward-compatibility-check": "^8.21.0",
         "roave/security-advisories": "dev-master",
         "webware/messagebus-event": "^2.0.0-beta.1",
-        "webware/webware-tools": "^0.1.x-dev"
+        "webware/webware-tools": "^1.0.0-beta"
     },
     "suggest": {
         "laminas/laminas-view": "Required when the consuming application does not provide the HelperPluginManager service used by the SystemMessenger view helper"
