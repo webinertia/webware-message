@@ -29,6 +29,8 @@ use Webware\Message\View\Helper\SystemMessengerFactory;
 
 use function dirname;
 
+use const DIRECTORY_SEPARATOR;
+
 #[CoversClass(ConfigProvider::class)]
 #[CoversMethod(ConfigProvider::class, 'getDependencies')]
 #[CoversMethod(ConfigProvider::class, 'getTemplates')]
@@ -72,7 +74,7 @@ final class ConfigProviderTest extends TestCase
         $templates = $provider->getTemplates();
 
         self::assertSame(
-            [dirname(__DIR__, levels: 2) . '/src/../templates/'],
+            [dirname(__DIR__, levels: 2) . DIRECTORY_SEPARATOR . 'src/../templates/'],
             $templates['paths']['message'],
         );
         self::assertCount(1, $templates['paths']);
