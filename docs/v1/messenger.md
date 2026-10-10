@@ -20,8 +20,8 @@ $messenger->sendNow('Visible this request too', MessageLevel::Info);
 
 ### Hops
 
-- `send()` defaults to one hop — visible on the next request, then expires.
-- `sendNow()` defaults to zero hops — visible in the current request only.
+- `send()` defaults to one hop - visible on the next request, then expires.
+- `sendNow()` defaults to zero hops - visible in the current request only.
 - Passing `$hops` persists the message across that many additional hops.
 
 ```php
