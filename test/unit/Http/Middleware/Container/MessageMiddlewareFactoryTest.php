@@ -55,7 +55,7 @@ final class MessageMiddlewareFactoryTest extends TestCase
                 static fn(string $id): mixed => HelperPluginManager::class === $id ? $helperManager : null,
             );
 
-        $middleware = (new MessageMiddlewareFactory())($container);
+        $middleware = new MessageMiddlewareFactory()($container);
 
         self::assertInstanceOf(MessageMiddleware::class, $middleware);
     }

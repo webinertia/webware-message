@@ -31,6 +31,6 @@ final class SystemMessengerFactoryTest extends TestCase
     #[Test]
     public function factoryCreatesHelper(): void
     {
-        self::assertInstanceOf(SystemMessenger::class, (new SystemMessengerFactory())());
+        self::assertInstanceOf(SystemMessenger::class, new SystemMessengerFactory()());
     }
 }
