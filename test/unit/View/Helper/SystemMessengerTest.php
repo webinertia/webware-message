@@ -77,7 +77,7 @@ final class SystemMessengerTest extends TestCase
     #[Test]
     public function invokeReturnsEmptyStringWhenNoMessengerIsSet(): void
     {
-        self::assertSame('', (new SystemMessengerHelper())());
+        self::assertSame('', new SystemMessengerHelper()());
     }
 
     /**
