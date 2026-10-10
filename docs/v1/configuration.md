@@ -19,7 +19,7 @@
 ]
 ```
 
-`SystemMessenger` is not a singleton — it is constructed per request from the
+`SystemMessenger` is not a singleton - it is constructed per request from the
 session by `MessageMiddleware`.
 
 ## View Helpers

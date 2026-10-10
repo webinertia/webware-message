@@ -4,7 +4,7 @@
 
 - PHP 8.4.1 or later
 - A Mezzio application (PSR-11 container, PSR-15 middleware)
-- Session middleware in the pipeline — the message middleware reads the
+- Session middleware in the pipeline - the message middleware reads the
   session from `SessionMiddleware::SESSION_ATTRIBUTE`
 
 ## Composer
