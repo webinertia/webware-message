@@ -111,11 +111,13 @@ final class SystemMessengerTest extends TestCase
     {
         $storage = [SystemMessengerInterface::SESSION_KEY => $messages];
         $session = $this->createStub(SessionInterface::class);
-        $session->method('get')
+        $session
+            ->method('get')
             ->willReturnCallback(
                 static fn(string $name, mixed $default = null): mixed => $storage[$name] ?? $default,
             );
-        $session->method('has')
+        $session
+            ->method('has')
             ->willReturnCallback(
                 static fn(string $name): bool => array_key_exists($name, $storage),
             );

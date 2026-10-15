@@ -50,7 +50,8 @@ final class MessageMiddlewareFactoryTest extends TestCase
         );
 
         $container = $this->createStub(ContainerInterface::class);
-        $container->method('get')
+        $container
+            ->method('get')
             ->willReturnCallback(
                 static fn(string $id): mixed => HelperPluginManager::class === $id ? $helperManager : null,
             );
