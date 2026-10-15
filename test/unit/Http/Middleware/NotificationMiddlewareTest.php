@@ -44,11 +44,13 @@ final class NotificationMiddlewareTest extends TestCase
         $messenger->expects($this->never())->method('sendNow');
 
         $handler = $this->createMock(RequestHandlerInterface::class);
-        $handler->expects($this->once())
+        $handler
+            ->expects($this->once())
             ->method('handle')
             ->willReturn($response);
 
-        $request = new ServerRequest()->withAttribute(SystemMessengerInterface::class, $messenger)
+        $request = new ServerRequest()
+            ->withAttribute(SystemMessengerInterface::class, $messenger)
             ->withAttribute(
                 CommandResult::class,
                 new CommandResult($this->createStub(CommandInterface::class), MessageStatus::Success, null),
@@ -69,7 +71,8 @@ final class NotificationMiddlewareTest extends TestCase
         $capturedMessage = null;
 
         $messenger = $this->createMock(SystemMessengerInterface::class);
-        $messenger->expects($this->once())
+        $messenger
+            ->expects($this->once())
             ->method('sendNow')
             ->willReturnCallback(
                 static function (string $message, MessageLevel $key, ?int $hops = 0) use (
@@ -84,11 +87,13 @@ final class NotificationMiddlewareTest extends TestCase
             );
 
         $handler = $this->createMock(RequestHandlerInterface::class);
-        $handler->expects($this->once())
+        $handler
+            ->expects($this->once())
             ->method('handle')
             ->willReturn($response);
 
-        $request = new ServerRequest()->withAttribute(SystemMessengerInterface::class, $messenger)
+        $request = new ServerRequest()
+            ->withAttribute(SystemMessengerInterface::class, $messenger)
             ->withAttribute(
                 CommandResult::class,
                 new CommandResult($this->command('Role saved.', 'Role not saved.'), MessageStatus::Failure, null),
@@ -112,7 +117,8 @@ final class NotificationMiddlewareTest extends TestCase
         $capturedMessage = null;
 
         $messenger = $this->createMock(SystemMessengerInterface::class);
-        $messenger->expects($this->once())
+        $messenger
+            ->expects($this->once())
             ->method('sendNow')
             ->willReturnCallback(
                 static function (string $message, MessageLevel $key, ?int $hops = 0) use (
@@ -127,11 +133,13 @@ final class NotificationMiddlewareTest extends TestCase
             );
 
         $handler = $this->createMock(RequestHandlerInterface::class);
-        $handler->expects($this->once())
+        $handler
+            ->expects($this->once())
             ->method('handle')
             ->willReturn($response);
 
-        $request = new ServerRequest()->withAttribute(SystemMessengerInterface::class, $messenger)
+        $request = new ServerRequest()
+            ->withAttribute(SystemMessengerInterface::class, $messenger)
             ->withAttribute(
                 CommandResult::class,
                 new CommandResult($this->command('Role saved.', 'Role not saved.'), MessageStatus::Success, null),
@@ -151,7 +159,8 @@ final class NotificationMiddlewareTest extends TestCase
     {
         $response = $this->createStub(ResponseInterface::class);
         $handler  = $this->createMock(RequestHandlerInterface::class);
-        $handler->expects($this->once())
+        $handler
+            ->expects($this->once())
             ->method('handle')
             ->willReturn($response);
 
@@ -171,7 +180,8 @@ final class NotificationMiddlewareTest extends TestCase
     {
         $response = $this->createStub(ResponseInterface::class);
         $handler  = $this->createMock(RequestHandlerInterface::class);
-        $handler->expects($this->once())
+        $handler
+            ->expects($this->once())
             ->method('handle')
             ->willReturn($response);
 

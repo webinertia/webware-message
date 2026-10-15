@@ -52,7 +52,8 @@ final class MessageMiddlewareTest extends TestCase
         $response          = $this->createStub(ResponseInterface::class);
         $capturedMessenger = null;
         $handler           = $this->createMock(RequestHandlerInterface::class);
-        $handler->expects($this->once())
+        $handler
+            ->expects($this->once())
             ->method('handle')
             ->willReturnCallback(
                 static function (ServerRequestInterface $request) use (

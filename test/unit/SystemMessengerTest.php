@@ -600,21 +600,25 @@ final class SystemMessengerTest extends TestCase
     {
         $this->storage = [];
         $this->session = $this->createStub(SessionInterface::class);
-        $this->session->method('get')
+        $this->session
+            ->method('get')
             ->willReturnCallback(
                 fn(string $name, mixed $default = null): mixed => $this->storage[$name] ?? $default,
             );
-        $this->session->method('has')
+        $this->session
+            ->method('has')
             ->willReturnCallback(
                 fn(string $name): bool => array_key_exists($name, $this->storage),
             );
-        $this->session->method('set')
+        $this->session
+            ->method('set')
             ->willReturnCallback(
                 function (string $name, mixed $value): void {
                     $this->storage[$name] = $value;
                 },
             );
-        $this->session->method('unset')
+        $this->session
+            ->method('unset')
             ->willReturnCallback(
                 function (string $name): void {
                     unset($this->storage[$name]);
