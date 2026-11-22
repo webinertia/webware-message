@@ -14,12 +14,18 @@ count = 1
 
 [[issues]]
 file = "src/SystemMessenger.php"
+code = "no-boolean-flag-parameter"
+message = "Avoid boolean flag parameters."
+count = 4
+
+[[issues]]
+file = "src/SystemMessenger.php"
 code = "too-many-methods"
 message = "Class has too many methods."
 count = 1
 
 [[issues]]
-file = "src/SystemMessenger.php"
+file = "src/SystemMessengerInterface.php"
 code = "no-boolean-flag-parameter"
 message = "Avoid boolean flag parameters."
 count = 4
@@ -29,9 +35,3 @@ file = "src/SystemMessengerInterface.php"
 code = "too-many-methods"
 message = "Interface has too many methods."
 count = 1
-
-[[issues]]
-file = "src/SystemMessengerInterface.php"
-code = "no-boolean-flag-parameter"
-message = "Avoid boolean flag parameters."
-count = 4
